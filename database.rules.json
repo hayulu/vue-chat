@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "messages": {
+      // 読み込みは制限なし
+      ".read": true,
+      // 書き込みは認証が必要
+      ".write": "auth !== null",
+      "$messageId": {
+        // 認証時のnameデータと書き込み時のnameデータは一致してないといけない
+        ".validate": "newData.child('name').val() === auth.token.name",
+        "text": {
+          // textデータは300文字以下でないといけない
+          ".validate": "newData.isString() && newData.val().length < 300"
+        }
+      }
+    }
+  }
+}
